@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>某个主题</title>
+    <title>Apollo Auto 安装</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -69,7 +69,7 @@ var addUtterances = () => {
     script.src = "https://utteranc.es/client.js";
     script.async = "async";
 
-    script.setAttribute("repo", "xinetzone/sanstyle-starter");
+    script.setAttribute("repo", "xinetzone/apollo-book");
     script.setAttribute("issue-term", "pathname");
     script.setAttribute("theme", "github-light");
     script.setAttribute("label", "💬 comment");
@@ -92,7 +92,7 @@ commentsRunWhenDOMLoaded(addUtterances);
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://xinetzone.github.io/sanstyle-starter/docs/start/topic.html" />
+    <link rel="canonical" href="https://xinetzone.github.io/apollo-book/docs/start/install.html" />
     <link rel="shortcut icon" href="../../_static/page-logo.jfif"/>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
@@ -133,7 +133,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../README.html">
-   Sanstyle Strater
+   Apollo Book
   </a>
  </li>
  <li class="toctree-l1 current active has-children">
@@ -148,7 +148,7 @@ commentsRunWhenDOMLoaded(addUtterances);
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     某个主题
+     Apollo Auto 安装
     </a>
    </li>
   </ul>
@@ -357,7 +357,7 @@ commentsRunWhenDOMLoaded(addUtterances);
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/docs/start/topic.md"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/start/install.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -373,11 +373,11 @@ commentsRunWhenDOMLoaded(addUtterances);
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/xinetzone/sanstyle-starter"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/xinetzone/apollo-book"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/xinetzone/sanstyle-starter/issues/new?title=Issue%20on%20page%20%2Fdocs/start/topic.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/xinetzone/apollo-book/issues/new?title=Issue%20on%20page%20%2Fdocs/start/install.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -398,6 +398,26 @@ commentsRunWhenDOMLoaded(addUtterances);
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apollo-docker">
+   启动 Apollo Docker 开发容器
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apollo">
+   <strong>
+    启动 Apollo
+   </strong>
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -406,15 +426,72 @@ commentsRunWhenDOMLoaded(addUtterances);
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>某个主题<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+  <div class="section" id="apollo-auto">
+<h1>Apollo Auto 安装<a class="headerlink" href="#apollo-auto" title="永久链接至标题">¶</a></h1>
+<p>参考：<a class="reference external" href="https://mp.weixin.qq.com/s/mLJW29Eaq0O2JtgFaAqlXw">开发者说｜Apollo 6.0 安装完全指南</a></p>
+<p>前提：</p>
+<ol class="simple">
+<li><p>Ubuntu20.04 系统</p></li>
+<li><p>安装 NVIDIA 显卡驱动（可参考）<a class="reference external" href="https://zhuanlan.zhihu.com/p/94378201">nvidia-smi指令报错：Failed to initialize NVML: Driver解决 - 知乎 (zhihu.com)</a></p></li>
+<li><p>安装和配置 nvidia-docker2，可参考：<a class="reference external" href="https://zhuanlan.zhihu.com/p/37519492">使用nvidia-docker2 - 知乎 (zhihu.com)</a></p></li>
+</ol>
+<p>具体步骤如下：</p>
+<ol class="simple">
+<li><p>通过 SSH 方式或 HTTPS 方式克隆 Apollo 源码仓库：</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用 SSH 的方式</span>
+git clone git@github.com:ApolloAuto/apollo.git
+
+<span class="c1"># 使用 HTTPS 的方式</span>
+git clone https://github.com/ApolloAuto/apollo.git
+</pre></div>
+</div>
+<p>GitHub 在国内访问速度可能很慢，可以使用：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用 HTTPS 的方式</span>
+git clone https://github.com.cnpmjs.org/ApolloAuto/apollo.git
+</pre></div>
+</div>
+<div class="section" id="apollo-docker">
+<h2>启动 Apollo Docker 开发容器<a class="headerlink" href="#apollo-docker" title="永久链接至标题">¶</a></h2>
+<p>进入到 Apollo 源码根目录，打开终端，执行下述命令以启动 Apollo Docker 开发容器：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./docker/scripts/dev_start.sh
+</pre></div>
+</div>
+<p>不出意外的话，启动成功后将得到下面信息：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Creating home directory <span class="sb">`</span>/home/znjs<span class="s1">&#39; ... Copying files from `/etc/skel&#39;</span> ...
+<span class="o">[</span> OK <span class="o">]</span> Congratulations! You have successfully finished setting up Apollo Dev Environment.
+<span class="o">[</span> OK <span class="o">]</span> To login into the newly created apollo_dev_znjs container, please run the following command:
+<span class="o">[</span> OK <span class="o">]</span>   bash docker/scripts/dev_into.sh
+<span class="o">[</span> OK <span class="o">]</span> Enjoy!
+</pre></div>
+</div>
+<p>如果是在虚拟机中安装的 Ubuntu 或物理机没有配置 NVIDIA 显卡，但却又安装了 NVIDIA 驱动，则在执行上述启动容器的操作时将遇到报错，解决方法是直接卸载 NVIDIA 相关安装项：</p>
+<pre class="code-snippet__js" data-lang="nginx"><section><code><span class="code-snippet_outer"><span class="code-snippet__attribute">sudo</span> apt purge nvidia*</span></code></section></pre>
+<p>启动 Apollo Docker 开发容器后，执行下述命令进入容器：</p>
+<div class="highlight-./docker/scripts/dev_into.sh notranslate"><div class="highlight"><pre><span></span>./docker/scripts/dev_into.sh
+</pre></div>
+</div>
+<p><img alt="" src="../../_images/1628651828823.png" /></p>
+<p>进入 Apollo Docker 开发容器后，在容器终端中执行下述命令构建 Apollo：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./apollo.sh build
+</pre></div>
+</div>
+<p>如果报无权限创建目录的问题，在命令前加 <code class="docutils literal notranslate"><span class="pre">sudo</span></code> 即可。</p>
+</div>
+<div class="section" id="apollo">
+<h2><strong>启动 Apollo</strong><a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h2>
+<p>完成 Apollo 构建后，在容器终端中执行下述命令：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./scripts/bootstrap.sh start
+</pre></div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
         binderOptions: {
-            repo: "xinetzone/sanstyle-starter",
+            repo: "xinetzone/apollo-book",
             ref: "main",
         },
         codeMirrorConfig: {
