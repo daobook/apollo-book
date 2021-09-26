@@ -185,7 +185,7 @@ sphinx:
       # matrix-theory:
       #   - "https://xinetzone.github.io/matrix-theory/"
       #   - null
-    language: zh
+    language: zh_CN
 
   extra_extensions:
     - sphinx_click.ext
