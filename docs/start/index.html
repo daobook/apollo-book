@@ -1,11 +1,11 @@
 
 <!DOCTYPE html>
 
-<html lang="zh">
+<html lang="zh_CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>快速上手</title>
+    <title>Apollo 开放平台（raw）</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -23,18 +23,18 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/page.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/xin-css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3pro.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3mobile.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -83,9 +83,10 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
+    <script src="../../_static/translations.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
         const thebe_selector_input = "pre,.cell_input div.highlight"
@@ -96,7 +97,7 @@ commentsRunWhenDOMLoaded(addUtterances);
     <link rel="shortcut icon" href="../../_static/page-logo.jfif"/>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
-    <link rel="next" title="Apollo Auto 安装" href="install.html" />
+    <link rel="next" title="Apollo 整体架构" href="00_intro.html" />
     <link rel="prev" title="Apollo Book" href="../../README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -116,6 +117,10 @@ commentsRunWhenDOMLoaded(addUtterances);
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
       <img src="../../_static/logo.jpg" class="logo" alt="logo">
       
       
@@ -123,7 +128,7 @@ commentsRunWhenDOMLoaded(addUtterances);
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <p class="caption">
  <span class="caption-text">
@@ -138,7 +143,7 @@ commentsRunWhenDOMLoaded(addUtterances);
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="current reference internal" href="#">
-   快速上手
+   Apollo 开放平台（raw）
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -147,49 +152,28 @@ commentsRunWhenDOMLoaded(addUtterances);
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="install.html">
+    <a class="reference internal" href="00_intro.html">
+     Apollo 整体架构
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_install.html">
      Apollo Auto 安装
     </a>
    </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../basics/index.html">
-   指南
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../basics/topic.html">
-     基础
+    <a class="reference internal" href="03_apollo_do.html">
+     Apollo 编码最佳实践（需要修改）
     </a>
    </li>
-  </ul>
- </li>
-</ul>
-<p class="caption">
- <span class="caption-text">
-  主题
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../topics/index.html">
-   主题1
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../topics/topic.html">
-     某个主题
+    <a class="reference internal" href="04_apolo_release.html">
+     Apollo Release Build 简介（需要修改）
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_cyber.html">
+     Apollo Cyber RT
     </a>
    </li>
   </ul>
@@ -203,10 +187,10 @@ commentsRunWhenDOMLoaded(addUtterances);
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../principle/index.html">
-   解释
+   名词
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -214,30 +198,6 @@ commentsRunWhenDOMLoaded(addUtterances);
    <li class="toctree-l2">
     <a class="reference internal" href="../principle/topic.html">
      高级教程
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-<p class="caption">
- <span class="caption-text">
-  参考
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../reference/index.html">
-   基础
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../reference/start.html">
-     快速入门
     </a>
    </li>
   </ul>
@@ -253,8 +213,8 @@ commentsRunWhenDOMLoaded(addUtterances);
   <a class="reference internal" href="../about/index.html">
    关于
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -278,17 +238,17 @@ commentsRunWhenDOMLoaded(addUtterances);
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../other/index.html">
-   外部资源
+   其他
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../other/topic.html">
-     话题
+    <a class="reference internal" href="../other/book.html">
+     资料
     </a>
    </li>
   </ul>
@@ -406,9 +366,33 @@ commentsRunWhenDOMLoaded(addUtterances);
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>快速上手<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>告诉读者如何做某事的简短指南。假定读者拥有一些背景知识（通常，读者已经过阅读教程）。读者专注于“做事”而不是长篇大论的解释。How To 指南构成了大部分的文档，并且针对不同的主题分为不同的部分。</p>
+  <div class="section" id="apollo-raw">
+<h1>Apollo 开放平台（raw）<a class="headerlink" href="#apollo-raw" title="永久链接至标题">¶</a></h1>
+<p>Apollo 开放平台：提供开放的、完整的、安全的自动驾驶平台。</p>
+<p>阿布罗平台的开发包含下面几个步骤：</p>
+<ol class="simple">
+<li><p>了解离线模拟引擎 Dreamviewer 和 ApolloAuto 核心软件模块</p>
+<ul class="simple">
+<li><p>了解算法如何在汽车上运作</p></li>
+<li><p>不需要使用真正的汽车或硬件，就立即开始开发（云端仿真平台 Dreamland）</p></li>
+</ul>
+</li>
+<li><p>核心模块集成</p>
+<ul class="simple">
+<li><p>Location模块</p></li>
+<li><p>Perception模块：（支持第三方解决方案，如基于Mobileye ES4芯片的摄像头，用于L2开发）处理来自Lidar的点云数据，并根据请求返回分段对象信息。</p></li>
+<li><p>Planning模块：计算微调路径，为路径服务的路径段提供汽车动态控制信息。</p></li>
+<li><p>Routine模块：通过Navigator接口查找路径段的本地实现。</p></li>
+</ul>
+</li>
+<li><p>高清地图。L4级别的自动驾驶需要高清地图。由于自动驾驶汽车需要在系统中重建3D世界，因此参考对象坐标在重新定位地图和现实世界中的自动驾驶方面发挥着重要作用。</p></li>
+<li><p>基于云的在线仿真驱动场景引擎和数据中心。</p>
+<ul class="simple">
+<li><p>作为百度的合作伙伴，将被授予 Docker 证书来提交新图像并重播你在云上开发的算法。</p></li>
+<li><p>创建和管理复杂的场景以模拟真实世界的驾驶体验</p></li>
+</ul>
+</li>
+</ol>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -436,16 +420,36 @@ commentsRunWhenDOMLoaded(addUtterances);
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="../../README.html" title="previous page">Apollo Book</a>
-    <a class='right-next' id="next-link" href="install.html" title="next page">Apollo Auto 安装</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../../README.html" title="上一页 页">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">上一页</p>
+                <p class="prevnext-title">Apollo Book</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="00_intro.html" title="下一页 页">
+            <div class="prevnext-info">
+                <p class="prevnext-label">下一页</p>
+                <p class="prevnext-title">Apollo 整体架构</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

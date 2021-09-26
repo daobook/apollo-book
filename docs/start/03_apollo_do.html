@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>名词</title>
+    <title>Apollo 编码最佳实践（需要修改）</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -93,12 +93,12 @@ commentsRunWhenDOMLoaded(addUtterances);
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://xinetzone.github.io/apollo-book/docs/principle/index.html" />
+    <link rel="canonical" href="https://xinetzone.github.io/apollo-book/docs/start/03_apollo_do.html" />
     <link rel="shortcut icon" href="../../_static/page-logo.jfif"/>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
-    <link rel="next" title="高级教程" href="topic.html" />
-    <link rel="prev" title="Apollo Cyber RT" href="../start/05_cyber.html" />
+    <link rel="next" title="Apollo Release Build 简介（需要修改）" href="04_apolo_release.html" />
+    <link rel="prev" title="Apollo Auto 安装" href="01_install.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -135,44 +135,44 @@ commentsRunWhenDOMLoaded(addUtterances);
   教程
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../README.html">
    Apollo Book
   </a>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../start/index.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="index.html">
    Apollo 开放平台（raw）
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="../start/00_intro.html">
+    <a class="reference internal" href="00_intro.html">
      Apollo 整体架构
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../start/01_install.html">
+    <a class="reference internal" href="01_install.html">
      Apollo Auto 安装
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../start/03_apollo_do.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Apollo 编码最佳实践（需要修改）
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../start/04_apolo_release.html">
+    <a class="reference internal" href="04_apolo_release.html">
      Apollo Release Build 简介（需要修改）
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../start/05_cyber.html">
+    <a class="reference internal" href="05_cyber.html">
      Apollo Cyber RT
     </a>
    </li>
@@ -184,19 +184,19 @@ commentsRunWhenDOMLoaded(addUtterances);
   原理
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../principle/index.html">
    名词
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="topic.html">
+    <a class="reference internal" href="../principle/topic.html">
      高级教程
     </a>
    </li>
@@ -317,7 +317,7 @@ commentsRunWhenDOMLoaded(addUtterances);
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/docs/principle/index.md"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/start/03_apollo_do.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -337,7 +337,7 @@ commentsRunWhenDOMLoaded(addUtterances);
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/xinetzone/apollo-book/issues/new?title=Issue%20on%20page%20%2Fdocs/principle/index.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/xinetzone/apollo-book/issues/new?title=Issue%20on%20page%20%2Fdocs/start/03_apollo_do.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -358,64 +358,6 @@ commentsRunWhenDOMLoaded(addUtterances);
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   前向预警相关
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   侧后预警相关
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   制动相关
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   转向相关
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
-   交通标志相关
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   车灯控制相关
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
-   舒适性驾驶辅助
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
-   泊车辅助
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
-   监督性自动驾驶
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
-   其他
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -424,201 +366,127 @@ commentsRunWhenDOMLoaded(addUtterances);
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>名词<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id2">
-<h2>前向预警相关<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>FCW</dt><dd><p>Front Collision Warning，前向碰撞预警；</p>
-</dd>
-<dt>PCW</dt><dd><p>Pedestrian Collision Warning，行人碰撞预警；</p>
-</dd>
-<dt>LDW</dt><dd><p>Lane Departure Warning，车道偏离预警；</p>
-</dd>
-</dl>
+  <div class="section" id="apollo">
+<h1>Apollo 编码最佳实践（需要修改）<a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h1>
+<p>来源：<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/technical_tutorial/apollo_best_coding_practice_cn.md">apollo/apollo_best_coding_practice_cn</a></p>
+<ol>
+<li><p>提交 PR 前记得先在本地通过编译、单元测试和代码检查。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./apollo.sh check
+</pre></div>
 </div>
-<div class="section" id="id3">
-<h2>侧后预警相关<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>BSW</dt><dd><p>Blind Spot Warning，盲点报警
-DOW</p>
-</dd>
-<dd><p>Doors Opening Warning，开门报警
-LCA</p>
-</dd>
-<dd><p>Lane Changing Assist，变道辅助
-RCTA</p>
-</dd>
-<dd><p>Rear Crossing Traffic Alert，后向十字交通预警
-RCW</p>
-</dd>
-<dd><p>Rear Collision Warning，后向碰撞预警
-SCW</p>
-</dd>
-<dd><p>Side Collision Warning，侧向碰撞预警
-AEB-R</p>
-</dd>
-<dd><p>AEB Reverse 后向AEB</p>
-</dd>
-</dl>
+</li>
+<li><p>请写单元测试，并随源文件一起提交。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>foobar.h
+foobar.cc
+foobar_test.cc
+</pre></div>
 </div>
-<div class="section" id="id4">
-<h2>制动相关<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>AEB</dt><dd><p>Autonomous Emergency brake，自动紧急制动；
-AEB-V</p>
-</dd>
-<dd><p>AEB-Vehicle，AEB车辆；
-AEB-P</p>
-</dd>
-<dd><p>AEB-Pedestrian，AEB行人；
-AEB-C</p>
-</dd>
-<dd><p>AEB-Cyclist，AEB骑车人；
-AEB-Junction</p>
-</dd>
-<dd><p>AEB十字路口，即FCTA/B加上RCTA/B，Front Crossing Traffic Alert/Brake，前向十字交通路口报警/制动；Rear Crossing Traffic Alert/Brake，后向十字交通路口报警/制动；
-AEB-Reserve</p>
-</dd>
-<dd><p>后向AEB</p>
-</dd>
-</dl>
+</li>
+<li><p>一个 Bazel 目标（Target）最多包含一个头文件和一个（<code class="docutils literal notranslate"><span class="pre">.cc</span></code>）源文件。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cc_library</span><span class="p">(</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;foobar&quot;</span><span class="p">,</span>
+  <span class="n">hdrs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;foobar.h&quot;</span><span class="p">],</span>
+  <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;foobar.cc&quot;</span><span class="p">],</span>
+  <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+  <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">cc_test</span><span class="p">(</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;foobar_test&quot;</span><span class="p">,</span>
+  <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;foobar_test.cc&quot;</span><span class="p">],</span>
+  <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;:foobar&quot;</span><span class="p">,</span>
+    <span class="o">...</span>
+  <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="id5">
-<h2>转向相关<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>LDW</dt><dd><p>Lane Departure Warning，车道偏离预警；
-LKA</p>
-</dd>
-<dd><p>Lane Keeping Assist，车道保持辅助；也叫LDP，即Lane Departure Prevention，车道偏离修正
-LCC</p>
-</dd>
-<dd><p>Lane Centering Control，车道居中控制；
-ELK</p>
-</dd>
-<dd><p>Emergent Lane Keeping，紧急车道保持；
-EMA</p>
-</dd>
-<dd><p>紧急避让辅助；
-AES</p>
-</dd>
-<dd><p>Automatic Emergency Steering，自动紧急转向避让；</p>
-</dd>
-</dl>
+<p>可运行 <code class="docutils literal notranslate"><span class="pre">./apollo.sh</span> <span class="pre">format</span> <span class="pre">&lt;path/to/BUILD&gt;</span></code> 来修复 BUILD 文件的格式问题。</p>
+</li>
+<li><p>总体上，Apollo 遵循
+<a class="reference external" href="https://google.github.io/styleguide/cppguide.html">Google C++风格指南</a>.
+通过运行<code class="docutils literal notranslate"><span class="pre">scripts/clang_format.sh</span> <span class="pre">&lt;path/to/cpp/dirs/or/files&gt;</span></code> 或
+<code class="docutils literal notranslate"><span class="pre">./apollo.sh</span> <span class="pre">format</span> <span class="pre">-c</span> <span class="pre">&lt;path/to/cpp/dirs/or/files&gt;</span></code> 命令可修复
+C++代码风格问题。</p></li>
+<li><p>确保简单且一致的函数签名。注释中请不要出现中文。</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// 1. For input objects, const reference guarantes that it is valid, while</span>
+<span class="c1">//    pointers might be NULL or wild. Don&#39;t give others the chance to break</span>
+<span class="c1">//    you.</span>
+<span class="c1">// 2. For input scalars, just pass by value, which gives better locality and</span>
+<span class="c1">//    thus performance.</span>
+<span class="c1">// 3. For output, it&#39;s the caller&#39;s responsibility to make sure the pointer</span>
+<span class="c1">//    is valid. No need to do sanity check or mark it as &quot;OutputType* const&quot;,</span>
+<span class="c1">//    as pointer redirection is never allowed.</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">FooBar</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">InputObjectType</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InputScalaType</span><span class="w"> </span><span class="n">input2</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"></span>
+<span class="w">            </span><span class="n">OutputType</span><span class="o">*</span><span class="w"> </span><span class="n">output1</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span><span class="w"></span>
+
+<span class="c1">// RVO machanism will help you avoid unnecessary object copy.</span>
+<span class="c1">// See https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization</span>
+<span class="n">OutputType</span><span class="w"> </span><span class="nf">FooBar</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">InputType</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input</span><span class="p">);</span><span class="w"></span>
+</pre></div>
 </div>
-<div class="section" id="id6">
-<h2>交通标志相关<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>TSR</dt><dd><p>Traffic Sign Recognition，交通标志识别；
-ISA</p>
-</dd>
-<dd><p>Intelligent Speed Adaptation，智能车速控制；</p>
-</dd>
-</dl>
+</li>
+<li><p>尽可能使用<code class="docutils literal notranslate"><span class="pre">const</span></code> 修饰变量，函数。</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Variables that don&#39;t change.</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">current_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// Functions that have no side effect.</span>
+<span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"></span>
+</pre></div>
 </div>
-<div class="section" id="id7">
-<h2>车灯控制相关<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>IHC</dt><dd><p>Intelligent High-beam Control，智能远光灯控制；也叫AHBC，Automated High-Beam Control
-ADB</p>
-</dd>
-<dd><p>Adaptive Driving Beam，自适应大灯系统；也叫Matrix Beam，矩阵大灯控制</p>
-</dd>
-</dl>
+</li>
+<li><p>尽可能使用 C++对应头文件而非 C 语言的头文件。</p>
+<p>如，鼓励使用 <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;ctime&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;cmath&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;cstdio&gt;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;cstring&gt;</span></code> 的写法。请尽量杜绝使用<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;time.h&gt;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;math.h&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;stdio.h&gt;</span></code>， <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;string.h&gt;</span></code> 的写法。</p>
+</li>
+<li><p>只包含必需的头文件。不多，也不少。</p>
+<p>另外，请注意头文件包含顺序。可运行 <code class="docutils literal notranslate"><span class="pre">apollo.sh</span> <span class="pre">format</span> <span class="pre">-c</span></code> 或
+<code class="docutils literal notranslate"><span class="pre">scripts/clang_format.sh</span></code> 来修复头文件顺序问题。</p>
+</li>
+<li><p>在 Bazel 目标的<code class="docutils literal notranslate"><span class="pre">deps</span></code>部分，只列出该目标的直接依赖。一般来说，只需要列举出该目
+标包含的头文件所在的 Bazel 目标作为依赖项即可。</p>
+<p>举例，假设<code class="docutils literal notranslate"><span class="pre">sandwich.h</span></code>包含<code class="docutils literal notranslate"><span class="pre">bread.h</span></code>，而<code class="docutils literal notranslate"><span class="pre">bread.h</span></code>又包含<code class="docutils literal notranslate"><span class="pre">flour.h</span></code>。由
+于<code class="docutils literal notranslate"><span class="pre">sandwich.h</span></code>并不直接包含<code class="docutils literal notranslate"><span class="pre">flour.h</span></code> (毕竟，谁会想在三明治中加面粉呢？）
+，BUILD 文件应写作：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cc_library</span><span class="p">(</span>
+ <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;sandwich&quot;</span><span class="p">,</span>
+ <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sandwich.cc&quot;</span><span class="p">],</span>
+ <span class="n">hdrs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sandwich.h&quot;</span><span class="p">],</span>
+ <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+     <span class="s2">&quot;:bread&quot;</span><span class="p">,</span>
+     <span class="c1"># BAD practice to uncomment the line below</span>
+     <span class="c1"># &quot;:flour&quot;,</span>
+ <span class="p">],</span>
+<span class="p">)</span>
+
+ <span class="n">cc_library</span><span class="p">(</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bread&quot;</span><span class="p">,</span>
+     <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bread.cc&quot;</span><span class="p">],</span>
+     <span class="n">hdrs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bread.h&quot;</span><span class="p">],</span>
+     <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;:flour&quot;</span><span class="p">],</span>
+ <span class="p">)</span>
+
+ <span class="n">cc_library</span><span class="p">(</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;flour&quot;</span><span class="p">,</span>
+     <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;flour.cc&quot;</span><span class="p">],</span>
+     <span class="n">hdrs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;flour.h&quot;</span><span class="p">],</span>
+ <span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="id8">
-<h2>舒适性驾驶辅助<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>ACC</dt><dd><p>Adaptive Cruise Control 自适应巡航；
-FSRA</p>
-</dd>
-<dd><p>Full Speed Range ACC 全速域自适应巡航；
-ACC S&amp;G</p>
-</dd>
-<dd><p>ACC stop&amp;go，即FSRA ；
-iACC</p>
-</dd>
-<dd><p>智能自适应巡航（带限速控制）；
-TACC</p>
-</dd>
-<dd><p>Traffic-Aware Cruise Control 特斯拉的ACC；
-TJA</p>
-</dd>
-<dd><p>Traffic Jam Assit 交通拥堵辅助；
-ICA</p>
-</dd>
-<dd><p>Integrated Cruise Assist 集成巡航辅助(TJA全速域升级版)；
-ALC</p>
-</dd>
-<dd><p>Automated Lane Change，转向灯自动变道；
-HWA</p>
-</dd>
-<dd><p>Highway Assist，高速公路辅助，一般包括ALC功能；甚至有些feature无需驾驶员进行转向灯确认，直接变道；
-SHWA</p>
-</dd>
-<dd><p>Super-HWA，可脱手得高速公路辅助，需要高精度定位系统（高精地图+GNSS等方案）；
-NOA</p>
-</dd>
-<dd><p>Navigate on Autopilot，导航自动驾驶辅助(L2+)，特斯拉的类似HWA的功能，需要通过地图进行宏观路径规划才能使用；</p>
-</dd>
-</dl>
-</div>
-<div class="section" id="id9">
-<h2>泊车辅助<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>AVM</dt><dd><p>Around View Monitoring 全景环视监控
-APA</p>
-</dd>
-<dd><p>Automated Parking Assist 自动泊车辅助
-FAPA</p>
-</dd>
-<dd><p>Fusion APA，带视觉感知的融合泊车辅助
-RPA</p>
-</dd>
-<dd><p>Remote Parking Assist 远程泊车辅助
-MPP</p>
-</dd>
-<dd><p>Memory Parking Pilot 记忆泊车
-HPP</p>
-</dd>
-<dd><p>Home-zone Parking Pilot 家庭区域泊车（与MPP同一功能不同称谓）
-Summon</p>
-</dd>
-<dd><p>召唤（从车外操控车辆自动泊车和恢复行使，或在指定地点取回车辆）</p>
-</dd>
-</dl>
-</div>
-<div class="section" id="id10">
-<h2>监督性自动驾驶<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>TJP</dt><dd><p>Traffic Jam Pilot，交通拥堵领航(L3)
-HWP</p>
-</dd>
-<dd><p>Highway Pilot，高速公路领航(封闭道路，L3)
-City-Pilot</p>
-</dd>
-<dd><p>CP，城市领航(开放道路，L4)；或者UP，Urban Pilot；
-AVP</p>
-</dd>
-<dd><p>Automated Valet Parking，自动代客泊车（L4）</p>
-</dd>
-</dl>
-</div>
-<div class="section" id="id11">
-<h2>其他<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
-<dl class="simple myst">
-<dt>Localization</dt><dd><p>定位系统，如GNSS定位，或者Visual Localization视觉定位；
-Mapper</p>
-</dd>
-<dd><p>建图系统，如视觉众包建图、激光雷达建图等功能；
-Digital Map</p>
-</dd>
-<dd><p>数字地图系统，如ADAS地图（比如eHorizon电子地平线等）、高精地图（HD-MAP）等</p>
-</dd>
-</dl>
-</div>
-<div class="toctree-wrapper compound">
-</div>
+</li>
+<li><p>遵循 DRY（不要重复）的原则。</p>
+<p>避免重复的类，函数，常量定义，尽量避免重复的代码块。举例：</p>
+<ul class="simple">
+<li><p>用完整路径引用某个名字，如 <code class="docutils literal notranslate"><span class="pre">apollo::common::util::Type</span></code>，一次是 OK 的。但如
+果要使用两次或者更多次，建议设置一个短别名：
+<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">apollo::common::util::Type;</span></code>.</p></li>
+<li><p>用级联的方式访问 Protobuf 中的子字段是 OK 的，如，
+<code class="docutils literal notranslate"><span class="pre">a_proto.field_1().field_2().field_3()</span></code>, 但如果要访问多次，最好将共同前缀部
+分保存为引用： <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto&amp;</span> <span class="pre">field_2</span> <span class="pre">=</span> <span class="pre">a_proto.field_1().field_2();</span></code>.</p></li>
+</ul>
+</li>
+</ol>
 </div>
 
     <script type="text/x-thebe-config">
@@ -634,7 +502,7 @@ Digital Map</p>
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./docs/principle"
+            path: "./docs/start"
         },
         predefinedOutput: true
     }
@@ -651,19 +519,19 @@ Digital Map</p>
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../start/05_cyber.html" title="上一页 页">
+        <a class="left-prev" href="01_install.html" title="上一页 页">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">上一页</p>
-                <p class="prevnext-title">Apollo Cyber RT</p>
+                <p class="prevnext-title">Apollo Auto 安装</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="topic.html" title="下一页 页">
+        <a class="right-next" href="04_apolo_release.html" title="下一页 页">
             <div class="prevnext-info">
                 <p class="prevnext-label">下一页</p>
-                <p class="prevnext-title">高级教程</p>
+                <p class="prevnext-title">Apollo Release Build 简介（需要修改）</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

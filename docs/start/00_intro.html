@@ -1,0 +1,1316 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apollo 整体架构</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/page.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/xin-css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3pro.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3mobile.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/w3css/4/w3.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "xinetzone/apollo-book");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script src="../../_static/translations.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://xinetzone.github.io/apollo-book/docs/start/00_intro.html" />
+    <link rel="shortcut icon" href="../../_static/page-logo.jfif"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Apollo Auto 安装" href="01_install.html" />
+    <link rel="prev" title="Apollo 开放平台（raw）" href="index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.jpg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  教程
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../README.html">
+   Apollo Book
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="index.html">
+   Apollo 开放平台（raw）
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Apollo 整体架构
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_install.html">
+     Apollo Auto 安装
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_apollo_do.html">
+     Apollo 编码最佳实践（需要修改）
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_apolo_release.html">
+     Apollo Release Build 简介（需要修改）
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_cyber.html">
+     Apollo Cyber RT
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  原理
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../principle/index.html">
+   名词
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../principle/topic.html">
+     高级教程
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  混沌
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../about/index.html">
+   关于
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../about/zreferences.html">
+     参考文献
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../CHANGELOG.html">
+     变更日志
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://xinetzone.github.io/sanstyle-book/">
+   Sanstyle Book
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../other/index.html">
+   其他
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../other/book.html">
+     资料
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  <div class="w3-padding w3-card-4 w3-pale-green">
+  <a href="https://github.com/xinetzone" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub"
+      data-position="top" data-delay="50">
+      <i class="fab fa-github"></i>
+  </a>
+  <a href="mailto:q735613050@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top"
+      data-delay="50">
+      <i class="fas fa-envelope-open"></i>
+  </a>
+  <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=735613050" class="tooltipped"
+      target="_blank" data-tooltip="QQ联系我: 735613050" data-position="top" data-delay="50">
+      <i class="fab fa-qq"></i>
+  </a>
+  <a href="https://www.zhihu.com/people/liu-xin-wei-55" class="tooltipped" target="_blank"
+      data-tooltip="关注我的知乎: liu-xin-wei-55" data-position="top" data-delay="50">
+      <i class="fab fa-zhihu1">知</i>
+  </a>
+  <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/xinet" class="tooltipped"
+      data-tooltip="领英联系我: xinet" data-position="top" data-delay="50">
+      <i class="fab fa-linkedin"></i>
+  </a>
+  <div><a href="https://github.com/xinetzone/sanstyle">上善若水</a> 版权所有</div>
+</div>
+
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/start/00_intro.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/xinetzone/apollo-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/xinetzone/apollo-book/issues/new?title=Issue%20on%20page%20%2Fdocs/start/00_intro.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apollo-modules">
+   Apollo
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     modules
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   深度学习算法模块
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dreamview">
+   DreamView
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   系统支持
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="apollo">
+<h1>Apollo 整体架构<a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h1>
+<p>Apollo 可分为四层技术栈：</p>
+<dl class="simple myst">
+<dt>参考车辆平台</dt><dd><p>Reference Vehicle Platform。apollo 抽象了一个”参考车辆平台”层，通过电子化的方式控制车辆的行驶行为。（线控汽车）</p>
+<p>CAN 卡能连通无人驾驶计算机系统和汽车底层控制网络，向汽车发送加速，制动和转向信号。</p>
+</dd>
+<dt>参考硬件层</dt><dd><p>Reference Hardware Platform。实现计算能力，包括计算单元、GPS/IMU、HMI Device 等；</p>
+<p>GPS 定位的基本原理，车载 GPS 接收器计算无线电信号到达卫星 Satellite 1 2 3 的距离，再利用三角定位法定位车辆位置。</p>
+<p>惯性测量单元（IMU，Inertial Measurement Unit）：在惯性坐标系中，测量汽车在 3 个方向（X，Y，Z）的加速度，将加速度对时间进行积分，可获得距离数据，然后将距离数据导入导航系统中即可测量车辆的速度，偏航角和位置信息。</p>
+<p>激光雷达（LiDAR）：激光雷达原理，发送和接受激光信号的时间差乘以光速，即为激光发生器和障碍物间的距离。目前安装在无人车四周的激光雷达一般用不小于8线束，安装在车顶的一般不小于16线束。</p>
+<p>毫米波雷达（Millimeter Wave Radar）：频率在10GHz~200GHz的电磁波，波长在毫米数量级(1-10mm)。目前无人驾驶应用的主要有三种，短距离雷达24GHz，长距离雷达77GHz，79GHz。</p>
+<p>超声波雷达(Ultrasonic Radar）：安装于车辆前后保险杠上，用于近距离障碍物的检测，15~500cm的检测范围。</p>
+<p>视觉传感器：也就是摄像头，有单目，双目，三目，环视摄像机（鱼眼镜头）。依靠成像的像素点图，从而让无人驾驶车了解周围环境。</p>
+</dd>
+<dt>软件平台层</dt><dd><p>最核心的层。</p>
+<p><strong>实时操作系统</strong>（RTOS，Real Time Operation System）：根据传感器测量的数据信息，及时进行计算和分析并执行相应的操作。比如，传感器检测到前方有移动障碍物，RTOS 必须及时计算并分析出障碍物是行人，汽车还是其他，预测障碍物的移动方向，并决定无人驾驶车是减速还是超车等。</p>
+<p><strong>运行时框架</strong>（Runtime Framework）：Apollo 系统运行时的环境，也即是定制版的 ROS（机器人操作系统）， 它含有多个自治系统模块，如接受模块，处理和发布自己的消息。共享内存的功能和性能（一次写入，多次读取），去中心化（解决单点故障问题）和数据兼容性（Protobuf 消息）。</p>
+<p><strong>应用程序模块层</strong>：应用程序软件平台拥有各种模块，包括地图引擎，定位，感知，路径规划，控制，端到端驾驶以及 HMI 交互模块。</p>
+</dd>
+<dt>云服务层</dt><dd><p>在云服务层开放了数据开放平台和唤醒万物的 DuerOS。</p>
+<p>高精度地图（HD maps）</p>
+<p>仿真环境（Simulation）</p>
+<p>数据平台（Data Platform）</p>
+<p>安全（Security）</p>
+<p>空中软件升级（OTA）</p>
+<p>智能语音系统（DuerOS）</p>
+</dd>
+</dl>
+<p>Apollo 源码剖析：</p>
+<div class="section" id="apollo-modules">
+<h2>Apollo <code class="docutils literal notranslate"><span class="pre">modules</span></code><a class="headerlink" href="#apollo-modules" title="永久链接至标题">¶</a></h2>
+<p>Apollo 源码主要是 C++ 实现的，也有少量 Python，主要程序在 <code class="docutils literal notranslate"><span class="pre">apollo/modules</span></code> 目录中：</p>
+<p><img alt="" src="../../_images/mod-intro.png" /></p>
+<p>其中每个模块的作用如下：</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/audio</span></code></dt><dd><p>音频模块检测来自活动应急车辆（active emergency vehicle）的警报器声音。它检测并输出警报器的开/关状态、移动状态和警报器的相对位置。当检测到活动的紧急车辆时，你也可以在 Dreamview 上看到活动警报。</p>
+<p>输入：音频信号数据（cyber channel <code class="docutils literal notranslate"><span class="pre">/apollo/sensor/microphone</span></code>）。</p>
+<p>输出：音频检测结果，包括警报器激活/不激活状态（active/inactive），移动状态（接近/离开/静止（approaching/departing/stationary）），以及位置（cyber channel <code class="docutils literal notranslate"><span class="pre">apollo/audio/audio_detection</span></code>）。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/bridge</span></code></dt><dd><p>该模块为其他 Apollo 模块提供了一种与 Apollo 以外的进程通过套接字进行交互的方式。它包括发送器和接收器组件。</p>
+<p>输入：在发送器（sender）组件中，只有一个输入，即 proto 结构的发送器处理。在接收器（receiver）组件中，其输入与其他组件不同。它的输入来自 UDP 套接字。</p>
+<p>输出：发送方的输出是通过 UDP 套接字的方式。接收者有一个输出，是接收方处理。</p>
+<p>启动：Bridge 的启动与其他模块的启动是一致的。桥接器（<code class="docutils literal notranslate"><span class="pre">bridge</span></code>）包含两个子模块，分别是：<code class="docutils literal notranslate"><span class="pre">sender</span></code> 和 <code class="docutils literal notranslate"><span class="pre">receiver</span></code>。<code class="docutils literal notranslate"><span class="pre">sender</span></code> 负责发送 udp 数据，而接收器则负责接收由 udp 客户端发送的数据包，并对其进行解析，然后发送给已经注册的响应该消息的模块。发送方的 Sender的启动命令如下：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ cyber_launch start /apollo/modules/bridge/launch/bridge_receiver.launch
+</pre></div>
+</div>
+<p>Receiver 的启动命令如下：</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ cyber_launch start /apollo/modules/bridge/launch/bridge_sender.launch
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">修改配置</p>
+<p>Receiver 默认监听 8900 端口，并可以通过修改其相应的配置文件来改变被监控的端口号。可以通过修改其相应的配置文件来改变被监控的端口号。相应的 配置文件可以在 <code class="docutils literal notranslate"><span class="pre">apollo/modules/bridge/dag/bridge_receiver.dag</span></code> 文件中进行查询：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module_config</span> <span class="p">{</span>
+    <span class="n">module_library</span><span class="p">:</span> <span class="s2">&quot;/apollo/bazel-bin/modules/bridge/libudp_bridge_receiver_component.so&quot;</span>
+
+    <span class="n">components</span> <span class="p">{</span>
+
+        <span class="n">class_name</span><span class="p">:</span> <span class="s2">&quot;UDPBridgeReceiverComponent&lt;canbus::Chassis&gt;&quot;</span>
+        <span class="n">config</span> <span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;bridge_receiver_Chassis&quot;</span>
+            <span class="n">config_file_path</span><span class="p">:</span> <span class="s2">&quot;/apollo/modules/bridge/conf/udp_bridge_receiver_chassis.pb.txt&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>它的配置文件在 <code class="docutils literal notranslate"><span class="pre">apollo/modules/bridge/conf/udp_bridge_receiver_chassis.pb.txt</span></code>：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">topic_name</span><span class="p">:</span> <span class="s2">&quot;/apollo/canbus/Chassis&quot;</span>
+<span class="n">bind_port</span><span class="p">:</span> <span class="mi">8900</span>
+<span class="n">proto_name</span><span class="p">:</span> <span class="s2">&quot;Chassis&quot;</span>
+<span class="n">enable_timeout</span><span class="p">:</span> <span class="n">false</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>如果你想从 docker 之外的客户端接收数据，你需要在启动 docker 时用 <code class="docutils literal notranslate"><span class="pre">-p</span></code> 参数进行端口映射。在启动 docker 时使用 <code class="docutils literal notranslate"><span class="pre">-p</span></code> 参数做端口映射，你需要修改 <code class="docutils literal notranslate"><span class="pre">docker/scripts/dev_start.sh</span></code> 文件，如下所示：
+<img alt="" src="../../_images/Picture3.png" /></p>
+</div>
+<p>在 <code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">\.</span></code> 之后添加一个新行 <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">8900:8900</span></code>。这允许你映射 docker 的内部和外部端口，你可以接受由 docker 的外部客户端发送的数据。</p>
+<p>发送方配置文件的搜索方式与接收方相同。发送 <code class="docutils literal notranslate"><span class="pre">ADCTrajectory</span></code> 的发送方默认为 <code class="docutils literal notranslate"><span class="pre">127.0.0.1：8900</span></code>；发送 <code class="docutils literal notranslate"><span class="pre">LocalizationEstimate</span></code> 的发送方默认为 <code class="docutils literal notranslate"><span class="pre">127.0.0.1：8901</span></code>。上述 ip 地址和端口号可以通过相应的配置文件进行修改。配置文件的信息如下 <img alt="" src="../../_images/Picture4.png" />。</p>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">添加新的消息</p>
+<p>为了通过 udp 发送/接收新消息，你可以在相应的文件中添加两行代码。如果你想添加消息<code class="docutils literal notranslate"><span class="pre">apollo::test::PbTest</span></code>，如下所示 <img alt="" src="../../_images/Picture5.png" />。在文件 <code class="docutils literal notranslate"><span class="pre">udp_bridge_receiver_component.h</span></code> 第 80 行后添加新的一行：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">RECEIVER_BRIDGE_COMPONENT_REGISTER</span><span class="p">(</span><span class="n">test</span><span class="o">::</span><span class="n">PbTest</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>同时在 <code class="docutils literal notranslate"><span class="pre">udp_bridge_receiver_component.cc</span></code> 的 197 行后加入</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BRIDGE_RECV_IMPL</span><span class="p">(</span><span class="n">test</span><span class="o">::</span><span class="n">PbTest</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p><img alt="" src="../../_images/Picture6.png" /></p>
+<p>增加的 Sender 与 receiver 是一致的。代码修改完毕后，保存它，然后添加相应的配置 文件、启动文件和 dag 文件。重新编译代码并启动它。</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/calibration</span></code></dt><dd><p>校准模块，使用前必须对系统进行校准和标定，包括激光雷达与摄像头、毫米波雷达与摄像头等。所谓校准就是要对齐激光雷达、摄像头以及毫米波雷达获得的信息，我们知道激光雷达可以获得详细的3D信息，但是不能获得颜色信息，摄像头可以获得颜色信息，但是无法获得深度等3D信息，毫米波雷达不能获得颜色信息，但是可以获得3D信息，三者获得的信息对齐后，就可以同时获得实际环境中的3D信息和颜色信息。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/canbus</span></code></dt><dd><p>Canbus 接受并执行控制模块的命令，并收集汽车的底盘状态作为对控制的反馈。</p>
+<p>输入：控制命令。</p>
+<p>输出：底盘状态和底盘详细状态。</p>
+<p>CAN 总线模块的主要部件有：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vehicle</span></code>：包括车辆控制器和消息管理器的车辆</p></li>
+</ul>
+<p>您自己的车辆控制器和消息管理器可以通过在“<code class="docutils literal notranslate"><span class="pre">vehicle</span></code>”的文件夹中继承“<code class="docutils literal notranslate"><span class="pre">VehicleController</span></code>”和“<code class="docutils literal notranslate"><span class="pre">MessageManager</span></code>”实现。记得在“<code class="docutils literal notranslate"><span class="pre">VehicleFactory</span></code>”注册你的车辆。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/common</span></code></dt><dd><p>公共源码模块。包括如日志，工厂模式的实现，日志系统，监控模块，数学算法等。</p>
+<div class="admonition-adapters admonition">
+<p class="admonition-title">adapters</p>
+<p>不同的模块间能通过 topic 彼此通信。在 <code class="docutils literal notranslate"><span class="pre">adapter_flags</span></code> 中定义了大量的 topic 名称。</p>
+</div>
+<div class="admonition-configs-data admonition">
+<p class="admonition-title">configs 或者 data</p>
+<p>可以在这里对车辆进行配置。</p>
+</div>
+<div class="admonition-filters admonition">
+<p class="admonition-title">filters</p>
+<p>实现了一些滤波器类，包括低通数字滤波器、均值滤波器等。</p>
+</div>
+<div class="admonition-kv-db admonition">
+<p class="admonition-title">kv_db</p>
+<p>用于存储系统范围参数的轻量级“键-值”数据库。</p>
+</div>
+<div class="admonition-latency-recorder admonition">
+<p class="admonition-title">latency_recorder</p>
+<p>可以记录时延。</p>
+</div>
+<div class="admonition-math admonition">
+<p class="admonition-title">math</p>
+<p>包含许多有用的数学库。</p>
+</div>
+<div class="admonition-monitor-log admonition">
+<p class="admonition-title">monitor_log</p>
+<p>定义日志记录系统。</p>
+</div>
+<div class="admonition-proto admonition">
+<p class="admonition-title">proto</p>
+<p>定义多个项目范围的序列化数据。</p>
+</div>
+<div class="admonition-status admonition">
+<p class="admonition-title">status</p>
+<p>用于确定某些函数是否成功执行，
+否则提供有用的错误消息。</p>
+</div>
+<div class="admonition-util admonition">
+<p class="admonition-title">util</p>
+<p>包含带有注册的工厂设计模式的实现，
+一些字符串解析函数，以及一些解析工具用来解析序列化数据。</p>
+</div>
+<div class="admonition-vehicle-model admonition">
+<p class="admonition-title">vehicle_model</p>
+<p>该类指定车辆的模型。</p>
+</div>
+<div class="admonition-vehicle-state admonition">
+<p class="admonition-title">vehicle_state</p>
+<p>该类指定车辆的当前状态（例如位置、速度、航向等）。</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/control</span></code></dt><dd><p>控制模块。基于决策规划的输出路径及车身的状态使用不同的控制算法来输出控制命令，如转向刹车，控制等。</p>
+<p>本模块基于规划和当前的汽车状态，使用不同的控制算法来生成舒适的驾驶体验。控制模块可以在正常模式和导航模式下工作。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">模型参考自适应控制（Model Reference Adaptive Control，MRAC）</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">这种新的算法被设计用来有效地抵消边线转向的动态延迟和时间延迟。它还确保了更快、更准确的转向控制动作，以跟踪规划轨迹。有了 MRAC，Apollo 控制现在支持快速和急转弯的情况，如连续的侧向通过。</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">控制剖析服务（Control Profiling Service）</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">这项服务根据道路测试或模拟数据，对车辆的控制性能进行系统的定量分析。剖析服务不仅有助于支持车辆控制系统的高效迭代设计周期，而且还为用户提供对当前性能和模块内看到的改进的见解。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输入</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">规划轨迹</p></li>
+<li><p class="card-text">车辆状态</p></li>
+<li><p class="card-text">定位</p></li>
+<li><p class="card-text">Dreamview 自动模式更改请求</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输出</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">给底盘的控制指令（转向，节流，刹车）。</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>相关论文：<a class="reference external" href="https://arxiv.org/abs/2011.04250">Wang, Y., Jiang, S., Lin, W., Cao,Y., Lin, L., Hu, J., Miao, J. and Luo, Q., 2020, November. A Learning-Based Tune-Free Control Framework for Large Scale Autonomous Driving System Deployment, <em>arXiv preprint arXiv:2011.04250.</em></a></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/data</span></code></dt><dd><p>数据模块。收集、存储、处理收集到的各种数据的。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/dreamview</span></code></dt><dd><p>可视化模块。</p>
+<p>Dreamview 或 Apollo 的人机界面模块提供了一个网络应用，帮助开发者将其他相关的自主驾驶模块的输出可视化，如车辆的规划轨迹、汽车定位、底盘状态等。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输入</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">目前，Dreamview 监控以下信息：</p>
+<ul class="simple">
+<li><p class="card-text">定位（Localization），由 Protobuf 消息 <code class="docutils literal notranslate"><span class="pre">LocalizationEstimate</span></code> 定义，可以在文件 <code class="docutils literal notranslate"><span class="pre">localization/proto/localization.proto</span></code> 中找到。</p></li>
+<li><p class="card-text">底盘（Chassis），由 Protobuf 消息 <code class="docutils literal notranslate"><span class="pre">Chassis</span></code> 定义，可以在文件 <code class="docutils literal notranslate"><span class="pre">canbus/proto/chassis.proto</span></code> 中找到。</p></li>
+<li><p class="card-text">规划（Planning），由 Protobuf 消息 <code class="docutils literal notranslate"><span class="pre">ADCTrajectory</span></code> 定义，可以在文件 <code class="docutils literal notranslate"><span class="pre">planning/proto/planning.proto</span></code> 中找到。</p></li>
+<li><p class="card-text">监控器（Monitor），由 Protobuf 消息 <code class="docutils literal notranslate"><span class="pre">MonitorMessage</span></code> 定义，可以在文件 <code class="docutils literal notranslate"><span class="pre">common/monitor/proto/monitor.proto</span></code> 中找到。</p></li>
+<li><p class="card-text">感知障碍（Perception Obstacles），由 Protobuf 消息 <code class="docutils literal notranslate"><span class="pre">PerceptionObstacles</span></code> 定义，可以在文件 <code class="docutils literal notranslate"><span class="pre">perception/proto/perception_obstacle.proto</span></code> 中找到。</p></li>
+<li><p class="card-text">预测（Prediction），由 Protobuf 消息 <code class="docutils literal notranslate"><span class="pre">PredictionObstacles</span></code> 定义，可以在文件 <code class="docutils literal notranslate"><span class="pre">prediction/proto/prediction_obstacle.proto</span></code> 中找到。</p></li>
+<li><p class="card-text">路由（Routing），由 Protobuf 消息 <code class="docutils literal notranslate"><span class="pre">RoutingResponse</span></code> 定义，可以在文件 <code class="docutils literal notranslate"><span class="pre">routing/proto/routing.proto</span></code> 中找到。</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输出</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">一个基于网络的动态 3D 渲染，在模拟世界中监测到的信息。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>相关论文：</p>
+<ol class="simple">
+<li><p><a class="reference external" href="https://ieeexplore.ieee.org/document/8968102">Xu, J., Luo, Q., Xu, K., Xiao, X., Yu, S., Hu, J., Miao, J. and Wang, J., 2019, November. An Automated Learning-Based Procedure for Large-scale Vehicle Dynamics Modeling on Baidu Apollo Platform. In <em>2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) (pp. 5049-5056). IEEE.</em></a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/2011.00646">Jiang, S., Wang, Y., Lin, L., Lin, W., Cao, Y., Miao, J. and Luo, Q., 2020, November. DRF: A Framework for High-Accuracy Autonomous Driving Vehicle Modeling, <em>arXiv preprint arXiv:2011.00646.</em></a></p></li>
+</ol>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/drivers</span></code></dt><dd><p>驱动模块。各种传感器驱动。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">camera</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text"><code class="docutils literal notranslate"><span class="pre">camera</span></code> 包是基于 V4L USB 相机设备实现封装，提供图像采集及发布的功能。本驱动中使用了一台长焦相机和一台短焦相机。</p>
+<div class="admonition-channels admonition">
+<p class="card-title admonition-title">输出 channels</p>
+<ul class="simple">
+<li><p class="card-text">/apollo/sensor/camera/front_12mm/image</p></li>
+<li><p class="card-text">/apollo/sensor/camera/front_6mm/image</p></li>
+<li><p class="card-text">/apollo/sensor/camera/front_fisheye/image</p></li>
+<li><p class="card-text">/apollo/sensor/camera/left_fisheye/image</p></li>
+<li><p class="card-text">/apollo/sensor/camera/right_fisheye/image</p></li>
+<li><p class="card-text">/apollo/sensor/camera/rear_6mm/image</p></li>
+</ul>
+</div>
+<div class="admonition-camera admonition">
+<p class="card-title admonition-title">启动 camera 驱动</p>
+<p class="card-text"><strong>请先修改并确认 launch 文件中的参数与实际车辆相对应</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># in docker</span>
+bash /apollo/scripts/camera.sh
+<span class="c1"># or</span>
+<span class="nb">cd</span> /apollo <span class="o">&amp;&amp;</span> cyber_launch start modules/drivers/camera/launch/camera.launch
+</pre></div>
+</div>
+</div>
+<div class="admonition-camera-video-compression admonition">
+<p class="card-title admonition-title">启动 camera + video compression 驱动</p>
+<p class="card-text"><strong>请先修改并确认launch文件中的参数与实际车辆相对应</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># in docker</span>
+bash /apollo/scripts/camera_and_video.sh
+<span class="c1"># or</span>
+<span class="nb">cd</span> /apollo <span class="o">&amp;&amp;</span> cyber_launch start modules/drivers/camera/launch/camera_and_video.launch
+</pre></div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="card-title admonition-title">常见问题</p>
+<ol class="simple">
+<li><p class="card-text">如果出现报错“sh: 1: v4l2-ctl: not found”，需要安装 <code class="docutils literal notranslate"><span class="pre">v4l2</span></code> 库。</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install v4l-utils
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">canbus</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">CAN 客户端：因为它是被不同的使用 CAN 总线协议的传感器共享的。您自己的 CAN 客户端可以通过继承 <code class="docutils literal notranslate"><span class="pre">apollo/modules/drivers/canbus/can_client</span></code> 的文件夹中实现的“<code class="docutils literal notranslate"><span class="pre">CanClient</span></code>”类。记得在“<code class="docutils literal notranslate"><span class="pre">CanClientFactory</span></code>”注册你的客户机客户端。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/localization</span></code></dt><dd><p>定位模块。输入 GPS 和 IMU 信息输出自车定位信息。</p>
+<p>该模块提供定位服务。默认情况下有两种方法。一种是结合 GPS 和 IMU 信息的 RTK（Real Time Kinematic 实时运动）方法，另一种是融合 GPS、IMU 和激光雷达信息的多传感器融合方法。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输入</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">在提供的 RTK 方法中，有两个输入：</p>
+<ul class="simple">
+<li><p class="card-text">GPS-全球定位系统。</p></li>
+<li><p class="card-text">IMU-惯性测量单元。</p></li>
+</ul>
+<p class="card-text">在所提供的多传感器融合定位方法中，有三个输入：</p>
+<ul class="simple">
+<li><p class="card-text">GPS-全球定位系统。</p></li>
+<li><p class="card-text">IMU-惯性测量单元。</p></li>
+<li><p class="card-text">激光雷达-光探测与测距传感器</p></li>
+</ul>
+<p class="card-text">欲了解更多信息，请参阅多传感器融合定位。</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输出</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">一个Protobuf message 类型的 <code class="docutils literal notranslate"><span class="pre">LocalizationEstimate</span></code> 实例，它可以在 <code class="docutils literal notranslate"><span class="pre">localization/proto/localization.proto</span></code> 中找到。</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">添加定位实现</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">目前，RTK 方案是在类<code class="docutils literal notranslate"><span class="pre">RTKLocalization</span></code>中实现的。如果一个新的定位方法需要用一个名字（例如<code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code>）来实现，你可以遵循以下步骤：</p>
+<ol class="simple">
+<li><p class="card-text">在<code class="docutils literal notranslate"><span class="pre">proto/localization_config.proto</span></code>的<code class="docutils literal notranslate"><span class="pre">LocalizationType</span> <span class="pre">enum</span> <span class="pre">type</span></code>中添加Foo。</p></li>
+<li><p class="card-text">转到<code class="docutils literal notranslate"><span class="pre">modules/localization</span></code>目录，并创建一个Foo目录。在Foo目录中，根据rtk目录中的<code class="docutils literal notranslate"><span class="pre">RTKLocalization</span></code>类增加<code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code>类。<code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code>必须是<code class="docutils literal notranslate"><span class="pre">LocalizationBase</span></code>的子类。根据<code class="docutils literal notranslate"><span class="pre">rtk/BUILD</span></code>还需创建文件<code class="docutils literal notranslate"><span class="pre">foo/BUILD</span></code>。</p></li>
+<li><p class="card-text">您需要在函数<code class="docutils literal notranslate"><span class="pre">Localization::RegisterLocalizationMethods()</span></code>中注册<code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code>，它位于CPP文件<code class="docutils literal notranslate"><span class="pre">localization.cc</span></code>中。您可以通过在函数的末尾插入以下代码来注册：</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">localization_factory_</span><span class="o">.</span><span class="n">Register</span><span class="p">(</span><span class="n">LocalizationConfig</span><span class="p">::</span><span class="n">FOO</span><span class="p">,</span> <span class="p">[]()</span><span class="o">-&gt;</span><span class="n">LocalizationBase</span><span class="o">*</span> <span class="p">{</span> <span class="k">return</span> <span class="n">new</span> <span class="n">FooLocalization</span><span class="p">();</span> <span class="p">});</span>
+</pre></div>
+</div>
+<p class="card-text">请确保您的代码可以编译包含<code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code>的头文件。</p>
+<ol class="simple">
+<li><p class="card-text">现在你可以回到apollo根目录，用命令<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">apollo.sh</span> <span class="pre">build</span></code>构建你的代码。</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/map</span></code></dt><dd><p>高精地图模块。输出结构化地图信息，如车道线，十字路口等。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/monitor</span></code></dt><dd><p>监控模块。监控硬件状态，同时把状态发给交互界面。</p>
+<p>该模块包含系统级软件，如检查硬件状态的代码和监控系统健康的代码。在 Apollo 5.5 中，监控模块现在可以进行以下检查。</p>
+<ol class="simple">
+<li><p>运行模块的状态</p></li>
+<li><p>监测数据的完整性</p></li>
+<li><p>监测数据频率</p></li>
+<li><p>监测系统健康状况（如 CPU、内存、磁盘使用等）</p></li>
+<li><p>生成端到端的延迟统计报告</p></li>
+</ol>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>你可以为上述前 3 种能力配置你想监控的模块。</p>
+</div>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">硬件监测器</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">与硬件有关的监测，如 CAN卡/GPS 状态健康检查。检查结果报告给 HMI。</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">软件监测器</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<div class="admonition- admonition">
+<p class="card-title admonition-title">进程监控</p>
+<p class="card-text">它检查一个进程是否正在运行。配置它的方法是 <code class="docutils literal notranslate"><span class="pre">apollo::monitor::ProcessConf</span></code> proto，其工作原理类似于</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ps aux <span class="p">|</span> grep &lt;keyword1&gt; <span class="p">|</span> grep &lt;keyword2&gt; <span class="p">|</span> ...
+</pre></div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="card-title admonition-title">主题监控</p>
+<p class="card-text">它检查一个给定的主题是否被正常更新。用以下方式配置它 <code class="docutils literal notranslate"><span class="pre">apollo::monitor::TopicConf</span></code> proto.</p>
+</div>
+<div class="admonition- admonition">
+<p class="card-title admonition-title">简要监测</p>
+<p class="card-text">它将所有其他特定监视器的结果总结为一个简单的结论，如 OK、WARN、ERROR 或 FATAL。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/perception</span></code></dt><dd><p>感知模块。输入激光点云，高精地图，变换坐标，输出 3D 障碍物包括速度大小和方向。</p>
+<p>感知模块包含了使用多个摄像头、雷达（前部和后部）和激光雷达识别障碍物的能力，并融合它们各自的轨迹，以获得最终的轨迹列表。</p>
+<p>障碍物子模块对障碍物进行检测、分类和跟踪。</p>
+<p>该子模块还预测障碍物的运动和位置信息（例如，航向和速度）。</p>
+<p>对于车道线，我们通过后处理车道解析像素来构建车道实例，并计算出车道与自我车辆的相对位置（L0, L1, R0, R1等）。</p>
+<p>阿波罗 7.0 感知系统有以下新功能：</p>
+<ul class="simple">
+<li><p><strong>SMOKE</strong>：基于摄像头的障碍物检测模型。</p></li>
+<li><p><strong>Mask-Pillars</strong>：基于激光雷达的障碍物检测模型。</p></li>
+</ul>
+<p>关于新模型的更多细节，请参考 <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/perception/camera/README.md">Apollo 7.0中的相机感知</a>和 <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/perception/lidar/README.md">Apollo 7.0中的激光雷达感知</a>。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">架构</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">感知模块的一般结构如图所示：<img alt="" src="https://github.com/ApolloAuto/apollo/blob/master/docs/specs/images/Apollo3.5_perception_sensor_based.png" /></p>
+<p class="card-text">详细的感知模块显示如下：<img alt="" src="https://github.com/ApolloAuto/apollo/blob/master/docs/specs/images/Apollo6.0_perception_detail.png" /></p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">感知模块的输入是：</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">128 channel LiDAR data (cyber channel /apollo/sensor/velodyne128)</p></li>
+<li><p class="card-text">16 channel LiDAR data (cyber channel /apollo/sensor/lidar_front, lidar_rear_left, lidar_rear_right)</p></li>
+<li><p class="card-text">Radar data (cyber channel /apollo/sensor/radar_front, radar_rear)</p></li>
+<li><p class="card-text">Image data (cyber channel /apollo/sensor/camera/front_6mm, front_12mm)</p></li>
+<li><p class="card-text">Extrinsic parameters of radar sensor calibration (from YAML files)</p></li>
+<li><p class="card-text">Extrinsic and Intrinsic parameters of front camera calibration (from YAML files)</p></li>
+<li><p class="card-text">Velocity and Angular Velocity of host vehicle (cyber channel /apollo/localization/pose)</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">感知模块的输出是：</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">The 3D obstacle tracks with the heading, velocity and classification information (cyber channel /apollo/perception/obstacles)</p></li>
+<li><p class="card-text">The output of traffic light detection and recognition (cyber channel /apollo/perception/traffic_light)</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/planning</span></code></dt><dd><p>局部决策规划模块。</p>
+<p>Apollo7.0 相对之前的版本，本次新增了断头路场景，增加了”三点掉头”功能，增加了驶入驶出的能力，扩展了城市路网运营边界。</p>
+<p>“三点掉头”功能（“three-point turn”）</p>
+<p>基于 open space planner 框架，包含以下几个部分：断头路场景转换、开放空间 ROI 构建、掉头轨迹规划。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输入</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">输入信息：定位、感知、预测、高精地图、路由、任务管理模块。</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输出</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">输出信息：控制模块可执行的顺滑无碰撞轨迹。</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">Planning 模块架构</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text"><img alt="" src="../../_images/DeadEndScenario.png" /></p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">场景展示</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text"><img alt="" src="../../_images/EnterDeadEnd.png" />
+<img alt="" src="../../_images/TuringAround1.png" />
+<img alt="" src="../../_images/TuringAround2.png" />
+<img alt="" src="../../_images/OutDeadEnd.png" /></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/prediction</span></code></dt><dd><p>预测模块。输出感知的障碍物信息及自定位信息输出障碍物未来的轨迹。</p>
+<p>预测模块从感知模块接收障碍物，其基本感知信息包括位置、方向、速度、加速度，并生成不同概率的预测轨迹。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输入</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">障碍物</p></li>
+<li><p class="card-text">定位</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输出</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">具有预测轨迹的障碍物</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">功能</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<div class="admonition- admonition">
+<p class="card-title admonition-title">容器</p>
+<p class="card-text">容器存储来自订阅通道的输入数据。目前支持的输入是感知模块的障碍物，车辆定位和车辆规划。</p>
+</div>
+<div class="admonition- admonition">
+<p class="card-title admonition-title">场景</p>
+<p class="card-text">场景子模块分析包括私家车辆的场景。目前，我们有两个定义的场景。</p>
+<ul class="simple">
+<li><p class="card-text"><strong>巡航</strong>（Cruise）：这个场景包括车道保持和跟踪。</p></li>
+<li><p class="card-text"><strong>Junction</strong>：该场景涉及路口。路口可以有红绿灯和/或停止的标志。</p></li>
+</ul>
+</div>
+<div class="admonition- admonition">
+<p class="card-title admonition-title">障碍物</p>
+<ul class="simple">
+<li><p class="card-text"><strong>Ignore</strong>：这些障碍物不会影响自我车的轨迹，可以安全地忽略（例如，障碍物太远）。</p></li>
+<li><p class="card-text"><strong>Caution</strong>：这些障碍物有很大可能与小我私家车发生互动。</p></li>
+<li><p class="card-text"><strong>Normal</strong>：不属于忽略或注意的障碍物被默认为置于正常状态。</p></li>
+</ul>
+</div>
+<div class="admonition- admonition">
+<p class="card-title admonition-title">评估器</p>
+<p class="card-text">评估器对任何给定的障碍分别预测路径和速度。评估器通过使用存储在 <code class="docutils literal notranslate"><span class="pre">prediction/data/</span></code> 模型中的给定模型输出路径的概率来评估路径（车道序列）。</p>
+<p class="card-text">将提供三种类型的评估器，包括：</p>
+<ul class="simple">
+<li><p class="card-text">成本评估器：由一组成本函数计算的概率。</p></li>
+<li><p class="card-text">MLP 评估器：用 MLP 模型计算的概率。</p></li>
+<li><p class="card-text">RNN 评估器：用 RNN 模型计算的概率。</p></li>
+<li><p class="card-text"><strong>巡航 MLP+CNN-1d 评估器</strong>：概率是使用 MLP 和 CNN-1d 模型的混合来计算巡航情况的。</p></li>
+<li><p class="card-text"><strong>Junction MLP 评估器</strong>：使用交界口情景的 MLP 模型计算概率。</p></li>
+<li><p class="card-text"><strong>交界处地图评估器</strong>：使用基于语义地图的 CNN 模型计算交界处场景的概率。这个评估器是为警告级别的障碍物创建的。</p></li>
+<li><p class="card-text"><strong>Social 互动评估器</strong>：这个模型用于行人，用于短期轨迹预测。它使用社会 LSTM。这个评估器是为警戒级别的障碍物创建的。</p></li>
+<li><p class="card-text"><strong>语义 LSTM 评估器</strong>：这个评估器用于新的 “注意障碍物 “模型，以产生短期轨迹点，这些轨迹点是用 CNN 和 LSTM 计算的。车辆和行人都在使用这个相同的模型，但有不同的参数。</p></li>
+<li><p class="card-text"><strong>Vectornet LSTM 评估器</strong>：该评估器用于替代语义 LSTM 评估器，为 “注意 “标记的障碍物生成短期轨迹点。更多细节见<a class="reference external" href="https://github.com/ApolloAuto/apollo/docs/technical_documents/vectornet_lstm_evaluator.md">vectornet LSTM 评估器 readme</a>。</p></li>
+<li><p class="card-text">预测规划交互评估器：可以参考 <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/technical_documents/jointly_prediction_planning_evaluator_cn.md">预测规划交互评估器简介</a>.</p></li>
+</ul>
+</div>
+<div class="admonition- admonition">
+<p class="card-title admonition-title">预测器</p>
+<p class="card-text">预测器生成障碍物的预测轨迹。当前支持的预测器包括：</p>
+<ul class="simple">
+<li><p class="card-text">空：障碍物没有预测的轨迹</p></li>
+<li><p class="card-text">单行道：在公路导航模式下障碍物沿着单条车道移动。不在车道上的障碍物将被忽略。</p></li>
+<li><p class="card-text">车道顺序：障碍物沿车道移动</p></li>
+<li><p class="card-text">移动序列：障碍物沿其运动模式沿车道移动</p></li>
+<li><p class="card-text">自由运动：障碍物自由移动</p></li>
+<li><p class="card-text">区域运动：障碍物在可能的区域中移动</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/routing</span></code></dt><dd><p>全局规划模块。输入包括地图信息各起点终点地址，输出一个全局的导航信息。</p>
+<p>路由模块根据请求生成高级导航信息。</p>
+<p>路由模块依赖于路由拓扑文件，通常称为 Apollo 中的 <code class="docutils literal notranslate"><span class="pre">routing_map.*</span></code>。路由地图可以通过命令来生成。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bash scripts/generate_routing_topo_graph.sh
+</pre></div>
+</div>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输入</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">地图数据</p></li>
+<li><p class="card-text">路由请求（开始和结束位置）</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输出</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">路由导航信息</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/storytelling</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">storytelling</span></code> 是一个全局性的、高水平的场景管理器，帮助协调跨模块的行动。为了在城市道路上安全操作自动驾驶汽车，需要复杂的规划场景以确保安全驾驶。这些复杂的场景可能涉及不同的模块，以确保适当的机动性。为了避免对这种场景采取基于顺序的方法，创建了一个新的孤立的场景管理器，即 “<code class="docutils literal notranslate"><span class="pre">Storytelling</span></code>”模块。这个模块创建的故事是复杂的场景，会触发多个模块的行动。根据一些预定义的规则，该模块创建一个或多个故事，并发布到 <code class="docutils literal notranslate"><span class="pre">/apollo/storytelling</span></code>频道。这个模块的主要优点是对驾驶体验进行微调，并将复杂的场景打包成故事，可以被其他模块如计划、控制等订阅。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输入</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">Localization</p></li>
+<li><p class="card-text">HD Map</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输出</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">Story：可以被其他模块订阅的</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/task_manager</span></code></dt><dd><p>待更</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/third_party_perception</span></code></dt><dd><p>第三方感知模块。</p>
+<p>在 Apollo 2.5 中，第三方感知模块结合了第三方传感器，如 Mobileye 和 Conti/Delphi 雷达的输出，并通过简单的融合创造出类似于障碍物/车道检测信息的感知输出，如<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/perception/proto/perception_obstacle.proto">感知障碍物接口</a>中定义的那样。这个模块只是为了在 2.5 版本之前，在感知模块完全准备好之前，为实际车辆的预测/规划/控制算法服务。我们建议在 Apollo 2.5 正式发布后，使用’<code class="docutils literal notranslate"><span class="pre">modules/perception</span></code>’来代替你的测试目的。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输入</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">Radar data (ROS topic <em>/apollo/sensor/conti_radar</em> or <em>/apollo/sensor/delphi_esr</em> )</p></li>
+<li><p class="card-text">Mobileye data (ROS topic <em>/apollo/sensor/mobileye</em>)</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-12 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">输出</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<ul class="simple">
+<li><p class="card-text">The 3D obstacle tracks with the heading, velocity and classification information (ROS topic <em>/apollo/perception/obstacles</em>)</p></li>
+<li><p class="card-text">The lane marker information with fitted curve parameter, spatial information(l0,r0, etc) as well as semantic information (lane type) (ROS topic <em>/apollo/perception/obstacles</em>)</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/tools</span></code></dt><dd><p>通用监控与可视化模块。</p>
+<p>这些工具大多是用 Python 编写的，并依赖于编译后的 proto 模块。所以一般来说，你需要做以下步骤来使其良好运行。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>本页面中的所有脚本都是从 Apollo 根目录中引用的。</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compile everything including python proto libs.</span>
+apollo.sh build
+
+<span class="c1"># Setup PYTHONPATH properly.</span>
+<span class="nb">source</span> scripts/apollo_base.sh
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/guardian</span></code></dt><dd><p>待更</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/transform</span></code></dt><dd><p>待更</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/contrib</span></code></dt><dd><p>待更</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">apollo/modules/v2x</span></code></dt><dd><p>车路协同。</p>
+<p>对象级别的车端感知与路侧感知融合。</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id1">
+<h2>深度学习算法模块<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-4 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">感知</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">实现了<strong>基于 PointPillars 的激光点云障碍物识别模型</strong>，线上采用了 TensorRT 来对模型进行加速，每个周期的识别速度优于 70ms。</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-4 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">预测</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">实现了<strong>基于语义地图的低速行人预测模型</strong>，针对于低速园区的场景，继承了语义地图对于环境的丰富表达，更精准的预测行人低速轨迹。</p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-4 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">规划</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">实现了<strong>基于语义地图的模仿学习</strong>，通过大量的真实路测数据，模仿人类司机在一些特定场景下动态避障的能力，与已有基于优化的规划相结合，显著增强了行车的安全性和舒适性。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="dreamview">
+<h2>DreamView<a class="headerlink" href="#dreamview" title="永久链接至标题">¶</a></h2>
+<p>DreamView 提供了远程平行驾驶的接口模块，它不仅定义了压缩车端视频和音频的信号格式，也定义了完整的远程操纵命令格式，让车端可以接受远程操作员指令，并把指令转换成相应的规划和控制命令，来实现对车辆的远程操作。</p>
+<p>无人驾驶需要对紧急车辆，如救护车、消防车、警车等进行识别处理。</p>
+<div class="sphinx-bs container pb-4 full-width text-center docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-4 px-2 py-2 docutils">
+<div class="card w-100 w3-pale-red w3-card docutils">
+<div class="card-header w3-pale-blue w3-wide w3-card-4 docutils">
+<p class="card-text">紧急车辆检测</p>
+</div>
+<div class="card-body text-justify w3-padding docutils">
+<p class="card-text">通过多声道麦克风来捕捉车辆周围的声音，采用深度学习的方法来检测紧急车辆，准确率达到95%以上，同时通过算法来判断紧急车辆的方位，以及是否逼近或者远离自动驾驶车辆。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>系统支持<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>全面支持 C++14、Python 3.6、编译工具 Bazel 3.4 和 GCC 7.5，主要的依赖库譬如 PCL TensorTR PyTorch 等也做了全面的升级，这些升级不仅与业界保持最新同步，也使得 Apollo 算法有了更优的性能。</p>
+<ul class="simple">
+<li><p>CUDA 升级到11.1版本，以支持 Nvidia Ampere（30x0 系列）GPU，NVIDIA 驱动程序 &gt;= 455.32</p></li>
+<li><p>LibTorch（包括 CPU 和 GPU 版本）相应地升级到 1.7.0 版本。</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xinetzone/apollo-book",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs/start"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="index.html" title="上一页 页">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">上一页</p>
+                <p class="prevnext-title">Apollo 开放平台（raw）</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="01_install.html" title="下一页 页">
+            <div class="prevnext-info">
+                <p class="prevnext-label">下一页</p>
+                <p class="prevnext-title">Apollo Auto 安装</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            <p class="w3-card w3-pale-blue w3-padding">
+  Copyright © 2021
+  <a href="https://sanstylelab.github.io/">SanstyleLab</a> | 
+  Powered by <a href="https://github.com/executablebooks/jupyter-book">Jupyter Book</a>.
+</p>
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

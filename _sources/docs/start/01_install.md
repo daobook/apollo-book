@@ -52,11 +52,11 @@ Creating home directory `/home/znjs' ... Copying files from `/etc/skel' ...
 
 启动 Apollo Docker 开发容器后，执行下述命令进入容器：
 
-```./docker/scripts/dev_into.sh
+```sh
 ./docker/scripts/dev_into.sh
 ```
 
-![](image/install/1628651828823.png)
+![](images/install/1628651828823.png)
 
 进入 Apollo Docker 开发容器后，在容器终端中执行下述命令构建 Apollo：
 
